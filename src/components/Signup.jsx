@@ -50,6 +50,7 @@ const Signup = ({ setLogSign }) => {
           </label>
           <Input
             type="text"
+            placeholder="Enter your email"
             style={{
               background: "transparent",
               padding: "10px",
@@ -66,6 +67,7 @@ const Signup = ({ setLogSign }) => {
           </label>
           <Input
             type="text"
+            placeholder="Choose a preferred username"
             style={{
               background: "transparent",
               padding: "10px",
@@ -82,6 +84,7 @@ const Signup = ({ setLogSign }) => {
           </label>
           <Input
             type="text"
+            placeholder="Choose a strong password"
             style={{
               background: "transparent",
               padding: "10px",

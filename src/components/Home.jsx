@@ -108,7 +108,7 @@ const Home = () => {
                 <Input
                   name=""
                   id=""
-                  // value={inputPost}
+                  value={inputPost}
                   placeholder="How are you feeling today?"
                   onChange={(e) => handleInputChange(e)}
                   rows="2"
@@ -142,7 +142,7 @@ const Home = () => {
         </Card>
         <br />
         {postArray &&
-          postArray.map((el) => {
+          postArray.toReversed().map((el) => {
             return (
               <Card
                 style={{
