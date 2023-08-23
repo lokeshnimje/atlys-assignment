@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BsArrowRightShort, FaBeer } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-import {Button, Input, Row, Card }from "antd";
+import { Button, Input, Row, Card } from "antd";
 
 const Login = () => {
   const [logSign, setLogSign] = useState(true);
@@ -9,18 +9,31 @@ const Login = () => {
   return (
     <div
       style={{
-        justifyContent: "center", 
+        justifyContent: "center",
         alignItems: "center",
-        width:'90%',margin:'auto',
-        background: "transparent", 
+        width: "90%",
+        margin: "auto",
+        background: "transparent",
         padding: "20px",
-        height: "100vh"
+        height: "100vh",
       }}
-    > 
-  <Row style={{ justifyContent: "center", alignItems: "center", marginTop: "15vh" }}>
-      <img src={require("./image/Logo.png")} alt="" />
-  </Row>
-  <Row style={{ justifyContent: "center", alignItems: "center", marginTop: "20px" }}>
+    >
+      <Row
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "15vh",
+        }}
+      >
+        <img src={require("./image/Logo.png")} alt="" />
+      </Row>
+      <Row
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "20px",
+        }}
+      >
         {logSign ? (
           <Card
             style={{
@@ -30,9 +43,22 @@ const Login = () => {
               border: "2px solid #939393",
             }}
           >
-            <Row style={{ justifyContent: "center", color: "#939393", fontSize: "14px" }}>WELCOME BACK</Row>
             <Row
-              style={{justifyContent: "center", color: "#ffffff", fontSize: "18px", fontWeight: "500" }}
+              style={{
+                justifyContent: "center",
+                color: "#939393",
+                fontSize: "14px",
+              }}
+            >
+              WELCOME BACK
+            </Row>
+            <Row
+              style={{
+                justifyContent: "center",
+                color: "#ffffff",
+                fontSize: "18px",
+                fontWeight: "500",
+              }}
             >
               Log into your account
             </Row>
@@ -102,7 +128,12 @@ const Login = () => {
               >
                 <p style={{ color: "#939393" }}>Not registere yet ?</p>
                 <Row
-                  style={{ display: "flex", gap: "2px", cursor: "pointer", alignItems: "center" }}
+                  style={{
+                    display: "flex",
+                    gap: "2px",
+                    cursor: "pointer",
+                    alignItems: "center",
+                  }}
                   onClick={() => setLogSign(false)}
                 >
                   <p style={{ color: "#ffffff" }}>Register </p>
@@ -122,9 +153,22 @@ const Login = () => {
               border: "2px solid #939393",
             }}
           >
-            <Row style={{justifyContent: "center", color: "#939393", fontSize: "14px" }}>SIGN UP</Row>
             <Row
-              style={{ justifyContent: "center", color: "#ffffff", fontSize: "18px", fontWeight: "500 " }}
+              style={{
+                justifyContent: "center",
+                color: "#939393",
+                fontSize: "14px",
+              }}
+            >
+              SIGN UP
+            </Row>
+            <Row
+              style={{
+                justifyContent: "center",
+                color: "#ffffff",
+                fontSize: "18px",
+                fontWeight: "500 ",
+              }}
             >
               Create an account to continue
             </Row>
@@ -195,7 +239,12 @@ const Login = () => {
               >
                 <p style={{ color: "#939393" }}>Already have an account ?</p>
                 <Row
-                  style={{ display: "flex", gap: "2px", cursor: "pointer", alignItems: "center" }}
+                  style={{
+                    display: "flex",
+                    gap: "2px",
+                    cursor: "pointer",
+                    alignItems: "center",
+                  }}
                   onClick={() => setLogSign(true)}
                 >
                   <p style={{ color: "#ffffff" }}>Login </p>
@@ -209,7 +258,6 @@ const Login = () => {
           </Card>
         )}
       </Row>
- 
     </div>
   );
 };
