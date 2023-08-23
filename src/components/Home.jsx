@@ -1,18 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import { BsFillChatDotsFill } from "react-icons/bs";
 import { FaUserCircle } from "react-icons/fa";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { BiMessage } from "react-icons/bi";
-import { Button, Input, Row, Card, Col } from "antd";
-
+import { Button, Input, Row, Card, Col, Modal } from "antd";
+import moment from "moment";
+import Signup from "./Signup";
+const data = [
+  {
+    userName: "Lokesh Nimje",
+    post: " Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+    comments: 24,
+    time: "Tue Aug 23 2023 14:27:20 GMT+0530",
+  },
+  {
+    userName: "Mahesh Kumar",
+    post: " Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+    comments: 2,
+    time: "Wed Aug 23 2023 12:27:20 GMT+0530",
+  },
+];
 const Home = () => {
+  const [postArray, setPostArray] = useState(data);
+  const [inputPost, setInputPost] = useState("");
+  const [signupModal, setSignupModal] = useState(false);
+  const handleInputChange = (e) => {
+    setInputPost(e.target.value);
+  };
+  const handleAddPost = () => {
+    // setSignupModal(true);
+    const payload = {
+      "userName": "Mahesh Kumar",
+      "post": inputPost,
+      "comments": 0,
+      "time": new Date()
+    }
+    const newData = postArray.unshift(payload)
+    console.log(newData);
+    setPostArray([...postArray, payload])
+    setInputPost("")
+  };
+  console.log("postArray", postArray);
   return (
     <div style={{ width: "90%", margin: "auto" }}>
       <div
         style={{
           maxWidth: "700px",
           margin: " 5% auto",
-          color: "white",
+          color: "#C6C7CA",
           textAlign: "start",
         }}
       >
@@ -24,11 +59,14 @@ const Home = () => {
 
         <Card
           style={{
-            background: "rgba(39,41,45,1)",
+            background: "#26292D",
             marginTop: "40px",
+            border: "2px solid #36373B",
           }}
         >
-          <Row style={{ fontSize: "22px", fontWeight: "500", color: "white" }}>
+          <Row
+            style={{ fontSize: "18px", fontWeight: "500", color: "#C6C7CA" }}
+          >
             Create Post
           </Row>
           <Card style={{ border: "none", background: "black" }}>
@@ -57,14 +95,16 @@ const Home = () => {
                 <Input
                   name=""
                   id=""
-                  // placeholder="How are you feeling today?"
+                  // value={inputPost}
+                  placeholder="How are you feeling today?"
+                  onChange={(e) => handleInputChange(e)}
                   rows="2"
                   style={{
                     background: "transparent",
                     width: "100%",
                     border: "none",
                     padding: "10px 0px 0 20px",
-                    color: "white",
+                    color: "#C6C7CA",
                   }}
                 ></Input>
               </Col>
@@ -81,89 +121,114 @@ const Home = () => {
                 border: "none",
                 borderRadius: "3px",
               }}
+              onClick={() => handleAddPost()}
             >
               Post
             </Button>
           </div>
         </Card>
         <br />
+        {postArray &&
+          postArray.map((el) => {
+            return (
+              <Card
+                style={{
+                  maxWidth: "100%",
+                  height: "100%",
+                  borderRadius: "10px",
+                  background: "#26292D",
+                  border: "2px solid #36373B",
+                  marginTop: "15px",
+                }}
+              >
+                <Row
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    color: "#C6C7CA",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "10px",
+                      alignItems: "center",
+                    }}
+                  >
+                    <FaUserCircle style={{ fontSize: "35px" }} />
+                    <div>
+                      <p>{el.userName}</p>
+                      <p style={{ color: "gray" }}>
+                        {moment(el.time).fromNow()}
+                      </p>
+                    </div>
+                  </div>
+                  <FiMoreHorizontal style={{ cursor: "pointer" }} />
+                </Row>
+                <br />
+
+                <Card style={{ background: "black", border: "none" }}>
+                  <Row
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Col
+                      style={{
+                        width: "10%",
+                        height: "50px",
+                        borderRadius: "50%",
+                        background: "rgba(39,41,45,1)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        margin: "0px",
+                      }}
+                    >
+                      <p style={{ fontSize: "25px" }}>👋</p>
+                    </Col>
+                    <Col style={{ color: "gray", width: "88%" }}>{el.post}</Col>
+                  </Row>
+                </Card>
+                <Row
+                  style={{
+                    display: "flex",
+                    gap: "10px",
+                    justifyContent: "start",
+                    width: "98%",
+                    cursor: "pointer",
+                    color: "#C6C7CA",
+                    marginTop: "20px",
+                  }}
+                >
+                  <Col>
+                    <span style={{ fontSize: "22px" }}>
+                      <BiMessage />{" "}
+                    </span>{" "}
+                  </Col>
+                  <Col>{el.comments} comments</Col>
+                </Row>
+              </Card>
+            );
+          })}
+      </div>
+      <Modal 
+      open={signupModal} 
+      footer={null} 
+      onCancel={() => setSignupModal(false)}>
         <Card
           style={{
-            maxWidth: "100%",
-            height: "100%",
+            width: "470px",
             borderRadius: "10px",
             background: "rgba(39,41,45,1)",
             border: "2px solid #939393",
-            padding: "10px 20px",
           }}
         >
-          <Row
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              color: "white",
-            }}
-          >
-            <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-              <FaUserCircle style={{ fontSize: "35px" }} />
-              <div>
-                <p>Lokesh Nimje</p>
-                <p style={{ color: "gray" }}>5 min ago</p>
-              </div>
-            </div>
-            <FiMoreHorizontal style={{ cursor: "pointer" }} />
-          </Row>
-          <br />
-
-          <Card>
-            <Row
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
-              <Col
-                style={{
-                  width: "10%",
-                  height: "50px",
-                  borderRadius: "50%",
-                  background: "rgba(39,41,45,1)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  margin: "0px",
-                }}
-              >
-                <p style={{ fontSize: "25px" }}>👋</p>
-              </Col>
-              <Col style={{ color: "gray", width: "88%" }}>
-                Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-                amet sint. Velit officia consequat duis enim velit mollit.
-                Exercitation veniam consequat sunt nostrud amet.
-              </Col>
-            </Row>
+          <Signup />
           </Card>
-          <Row
-            style={{
-              display: "flex",
-              gap: "10px",
-              justifyContent: "start",
-              width: "98%",
-              cursor: "pointer",
-              color: "white",
-              marginTop: "20px",
-            }}
-          >
-            <Col>
-              <span style={{ fontSize: "22px" }}>
-                <BiMessage />{" "}
-              </span>{" "}
-            </Col>
-            <Col>24 comments</Col>
-          </Row>
-        </Card>
-      </div>
+      </Modal>
     </div>
   );
 };
