@@ -19,7 +19,7 @@ const Login = () => {
       message.error("Please fill all the fields", 2);
       return;
     }
-    if (uName == userName || (mail == userName && pass == password)) {
+    if ((uName == userName || mail == userName) && pass == password) {
       navigation("/home");
     } else {
       message.error("User doesnot exist, Please Register!", 2);

@@ -22,13 +22,13 @@ const data = [
     time: "Wed Aug 23 2023 12:27:20 GMT+0530",
   },
 ];
-const uName = localStorage.getItem("userName");
 
 const Home = () => {
   const [postArray, setPostArray] = useState(data);
   const [inputPost, setInputPost] = useState("");
 
   const navigation = useNavigate();
+  const uName = localStorage.getItem("userName");
 
   const handleInputChange = (e) => {
     setInputPost(e.target.value);
