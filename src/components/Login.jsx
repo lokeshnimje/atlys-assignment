@@ -1,11 +1,30 @@
 import React, { useState } from "react";
 import { BsArrowRightShort, FaBeer } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-import { Button, Input, Row, Card } from "antd";
+import { Button, Input, Row, Card, message } from "antd";
 import Signup from "./Signup";
 const Login = () => {
   const [logSign, setLogSign] = useState(true);
+  const [password, setPassword] = useState("");
+  const [userName, setUserName] = useState("");
+
   const navigation = useNavigate();
+
+  const uName = localStorage.getItem("userName");
+  const pass = localStorage.getItem("password");
+  const mail = localStorage.getItem("email");
+
+  const handleLogin = () => {
+    if (userName == "" || password == "") {
+      message.error("Please fill all the fields", 2);
+      return;
+    }
+    if (uName == userName || (mail == userName && pass == password)) {
+      navigation("/home");
+    } else {
+      message.error("User doesnot exist, Please Register!", 2);
+    }
+  };
   return (
     <div
       style={{
@@ -80,6 +99,7 @@ const Login = () => {
                   color: "#939393",
                   margin: "5px 0",
                 }}
+                onChange={(e) => setUserName(e.target.value)}
               />
               <br />
               <Row style={{ display: "flex", justifyContent: "space-between" }}>
@@ -99,6 +119,7 @@ const Login = () => {
               </Row>
               <Input
                 type="text"
+                placeholder="Enter your Password"
                 style={{
                   background: "transparent",
                   padding: "10px",
@@ -107,6 +128,7 @@ const Login = () => {
                   color: "#939393",
                   margin: "5px 0",
                 }}
+                onChange={(e) => setPassword(e.target.value)}
               />
 
               <Button
@@ -119,7 +141,8 @@ const Login = () => {
                   cursor: "pointer",
                   border: "none",
                 }}
-                onClick={() => navigation("/home")}
+                // onClick={() => navigation("/home")}
+                onClick={() => handleLogin()}
               >
                 Login now
               </Button>
@@ -145,16 +168,7 @@ const Login = () => {
             </Row>
           </Card>
         ) : (
-          <Card
-          style={{
-            width: "470px",
-            borderRadius: "10px",
-            background: "rgba(39,41,45,1)",
-            border: "2px solid #939393",
-          }}
-        >
           <Signup setLogSign={setLogSign} />
-          </Card>
         )}
       </Row>
     </div>

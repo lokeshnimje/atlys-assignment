@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { BsFillChatDotsFill } from "react-icons/bs";
 import { FaUserCircle } from "react-icons/fa";
 import { FiMoreHorizontal } from "react-icons/fi";
-import { BiMessage } from "react-icons/bi";
+import { BiMessage, BiLogOutCircle } from "react-icons/bi";
 import { Button, Input, Row, Card, Col, Modal } from "antd";
+import { useNavigate } from "react-router-dom";
 import moment from "moment";
-import Signup from "./Signup";
+
+
 const data = [
   {
     userName: "Lokesh Nimje",
@@ -20,27 +22,30 @@ const data = [
     time: "Wed Aug 23 2023 12:27:20 GMT+0530",
   },
 ];
+const uName = localStorage.getItem("userName");
+
 const Home = () => {
   const [postArray, setPostArray] = useState(data);
   const [inputPost, setInputPost] = useState("");
-  const [signupModal, setSignupModal] = useState(false);
+
+  const navigation = useNavigate();
+
   const handleInputChange = (e) => {
     setInputPost(e.target.value);
   };
   const handleAddPost = () => {
-    // setSignupModal(true);
     const payload = {
-      "userName": "Mahesh Kumar",
-      "post": inputPost,
-      "comments": 0,
-      "time": new Date()
-    }
-    const newData = postArray.unshift(payload)
-    console.log(newData);
-    setPostArray([...postArray, payload])
-    setInputPost("")
+      userName: uName,
+      post: inputPost,
+      comments: 0,
+      time: new Date(),
+    };
+    setPostArray([...postArray, payload]);
+    setInputPost("");
   };
-  console.log("postArray", postArray);
+  const handleLogout = () => {
+    navigation('/')
+  }
   return (
     <div style={{ width: "90%", margin: "auto" }}>
       <div
@@ -51,7 +56,15 @@ const Home = () => {
           textAlign: "start",
         }}
       >
-        <Row style={{ fontSize: "30px", fontWeight: "700" }}>Hello User</Row>
+        <Row style={{ justifyContent: "space-between"}}>
+          <Col style={{ fontSize: "30px", fontWeight: "700" }}>Hello {uName}</Col>
+          <Col>
+          <BiLogOutCircle 
+          style={{ fontSize: "20px", cursor: "pointer"}}
+          onClick={() => handleLogout()}
+          />
+          </Col>
+        </Row>
         <Row style={{ marginTop: "20px", fontSize: "18px" }}>
           How are you doing today? Would you like to share something with the
           community 🤗
@@ -214,21 +227,6 @@ const Home = () => {
             );
           })}
       </div>
-      <Modal 
-      open={signupModal} 
-      footer={null} 
-      onCancel={() => setSignupModal(false)}>
-        <Card
-          style={{
-            width: "470px",
-            borderRadius: "10px",
-            background: "rgba(39,41,45,1)",
-            border: "2px solid #939393",
-          }}
-        >
-          <Signup />
-          </Card>
-      </Modal>
     </div>
   );
 };
